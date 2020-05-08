@@ -1,0 +1,394 @@
+{% extends 'materialize/materialize_base_dev.html' %}
+
+{% block extra_stylesheets %}
+    <style>
+        @font-face {
+            font-family: 'Museo Cyrl';
+            src: url('/static/blog/font/Museo Cyrl 500.otf');
+        }
+
+        @font-face {
+            font-family: 'Circe Rounded';
+            src: url('/static/blog/font/CirceRounded-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: 'Circe Rounded';
+            font-weight: bold;
+            src: url('/static/blog/font/CirceRounded-AltBold.ttf');
+        }
+
+        * {
+            font-family: Circe Rounded;
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        b {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 31px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: Museo Cyrl;
+        }
+
+        h1 {
+            font-size: 72px;
+            line-height: 86px;
+        }
+
+        h2 {
+            font-size: 64px;
+            line-height: 77px;
+        }
+
+        h3 {
+            font-size: 48px;
+            line-height: 58px;
+        }
+
+        h4 {
+            font-size: 36px;
+            line-height: 43px;
+        }
+
+        h5 {
+            font-size: 24px;
+            line-height: 29px;
+        }
+
+        .col.noWrap {
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            height: 9em;
+            border: 2px solid #CDCDCD;
+            border-right: 0;
+            border-left: 0;
+        }
+
+        header .col.leftBlock {
+            padding-top: 2em;
+        }
+
+        header .col.rightBlock {
+            padding-top: 2.6em;
+        }
+
+        header .siteName {
+            line-height: 85px;
+        }
+
+        header .logout img,
+        header .avatar img,
+        header .email img {
+            cursor: pointer;
+        }
+
+        header .logout img {
+            padding-top: 7px;
+            width: 52%;
+        }
+
+        header .email img {
+            width: 56%;
+        }
+
+        header .avatar img {
+            margin: -22px 14px;
+            width: 75%;
+            border: 3px solid #010101;
+            border-radius: 50%;
+        }
+
+        header .mainLogo {
+            width: 244px;
+            position: relative;
+            top: -10px;
+            right: -17px;
+        }
+
+        .postList .post .title .subtitle {
+            font-family: Circe Rounded;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .postList .post .title h5 {
+            margin-top: 0;
+            font-family: Circe Rounded;
+            font-size: 24px;
+            line-height: 28px;
+
+            color: #315AF2;
+        }
+
+        .postList .post .title {
+            text-align: center;
+        }
+
+        .postList .post .postImage img {
+            height: -webkit-fill-available;
+        }
+
+        .postList .post .postImage {
+            max-height: 10em;
+            text-align: center;
+        }
+
+        .postList .post .postWrapper {
+            background: #FFFFFF;
+            border: 2px solid #CDCDCD;
+            box-sizing: border-box;
+            border-radius: 3px;
+            margin-bottom: 16px;
+            padding: 11px 11px 0px 11px;
+        }
+
+        .postList .post:hover .postWrapper {
+            border: 2px solid #E2EDF8;
+            box-shadow: 0px 2px 10px #E2EDF8;
+        }
+
+        .postList .infoBlock .views img {
+
+            margin-top: -0.4em;
+        }
+
+        .infoBlock .views img {
+            height: 1.4em;
+            position: relative;
+            top: 4px;
+        }
+
+        .infoBlock img {
+            height: 1em;
+            position: relative;
+            top: 2px;
+        }
+
+        .infoBlock > span {
+            width: 4em;
+            padding-right: 0.5em;
+        }
+
+        .mainPost .infoBlock .status {
+            color: #E9399C;
+            padding-right: 1em;
+        }
+
+        .mainPost .infoBlock {
+            padding-top: 4em;
+        }
+
+        .mainPost h2 {
+            font-size: 45px;
+            line-height: 52px;
+            width: 120%;
+            color: #315AF2;
+            margin-top: 0.3em;
+        }
+
+        .postHeader h3 {
+            font-size: 36px;
+            line-height: 20px;
+            width: 120%;
+            color: #315AF2;
+            margin-top: 1em;
+        }
+
+        .postHeader .filter {
+            margin-top: 2em;
+        }
+
+        .mainPost .mainImage img{
+            height: -webkit-fill-available;
+        }
+        .mainPost .mainImage {
+            width: 100%;
+            margin: 3em 0;
+            /* margin-bottom: -6em; */
+            z-index: -1;
+            max-height: 20em;
+            position: relative;
+        }
+
+        button.inactive {
+            background: #CDCDCD;
+        }
+
+        button.inactive:hover {
+            background: rgba(205, 205, 205, 0.75);
+        }
+
+        button.inactive[disabled] {
+            background: rgba(205, 205, 205, 0.4);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            font-size: 36px;
+            color: white;
+            line-height: 43px;
+            background: #315AF2;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0.2em 0.5em;
+        }
+
+        button:hover {
+            background: rgba(49, 90, 242, 0.75);
+        }
+
+        button[disabled] {
+            background: rgba(49, 90, 242, 0.4);
+            color: rgba(255, 255, 255, 0.41);
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: #CDCDCD;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="row">
+            <div class="col s6 leftBlock left">
+                <img class="mainLogo left" src="/static/blog/img/logo.svg"><b class="left siteName">Блог</b>
+            </div>
+            <div class="col s2 rightBlock right">
+                <div class="row">
+                    <div class="col s3 noWrap email">
+                        <img class=" right" src="/static/blog/img/email.svg">
+                    </div>
+                    <div class="col s5 noWrap avatar">
+                        <img class=" left" src="/static/blog/img/Uchenik.png">
+                    </div>
+                    <div class="col s3 noWrap logout">
+                        <img class=" left" src="/static/blog/img/logout.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container contentWrapper">
+        <div class="row mainPost">
+            <div class="col s6">
+                <div class="infoBlock">
+                    <span class="status">NEW</span>
+                    <span class="like"><img class="" src="/static/blog/img/like.svg">25</span>
+                    <span class="comments"><img class="" src="/static/blog/img/comment.svg">25</span>
+                    <span class="views"><img class="" src="/static/blog/img/view.svg">25</span>
+                </div>
+                <h2>{{ mainPost.title }}</h2>
+                <p>
+                    {{ mainPost.content }}
+                </p>
+                <button>
+                    Читать
+                </button>
+            </div>
+            <div class="col s6 mainImage">
+                <img class="left" src="{{ mainPost.photo }}">
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="container postListWrapper">
+        <div class="row postHeader">
+            <div class="col s6 left">
+                <h3>Другие статьи</h3>
+            </div>
+            <div class="col s6 rigt filter">
+                <img class="right" src="/static/blog/img/filter.svg">
+            </div>
+        </div>
+        <div class="row postList">
+            <div class="col s4">
+                {% for post in posts|slice:"1::3" %}
+                <div class="post">
+                    <div class="postWrapper">
+                        <div class="dateTime">{{ post.pub_date }}</div>
+                        <div class="postImage"><img src="{{ post.photo }}"></div>
+                        <div class="title">
+                            <div class="subtitle">Профессии будущего</div>
+                            <h5>{{ post.title }}</h5></div>
+                        <div class="infoBlock">
+                            <div class="row noWrap">
+                                <div class="col s3 left likes">
+                                    <img class="" src="/static/blog/img/like.svg">25
+                                </div>
+                                <div class="col s3 left comments">
+                                    <img class="" src="/static/blog/img/comment.svg">25
+                                </div>
+                                <div class="col s3 right views">
+                                    <img class="" src="/static/blog/img/view.svg">25
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col s4">
+                {% for post in posts|slice:"2::3" %}
+                <div class="post">
+                    <div class="postWrapper">
+                        <div class="dateTime">{{ post.pub_date }}</div>
+                        <div class="postImage"><img src="{{ post.photo }}"></div>
+                        <div class="title">
+                            <div class="subtitle">Профессии будущего</div>
+                            <h5>{{ post.title }}</h5></div>
+                        <div class="infoBlock">
+                            <div class="row noWrap">
+                                <div class="col s3 left likes">
+                                    <img class="" src="/static/blog/img/like.svg">25
+                                </div>
+                                <div class="col s3 left comments">
+                                    <img class="" src="/static/blog/img/comment.svg">25
+                                </div>
+                                <div class="col s3 right views">
+                                    <img class="" src="/static/blog/img/view.svg">25
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col s4">
+                {% for post in posts|slice:"3::3" %}
+                <div class="post">
+                    <div class="postWrapper">
+                        <div class="dateTime">{{ post.pub_date }}</div>
+                        <div class="postImage"><img src="{{ post.photo }}"></div>
+                        <div class="title">
+                            <div class="subtitle">Профессии будущего</div>
+                            <h5>{{ post.title }}</h5></div>
+                        <div class="infoBlock">
+                            <div class="row noWrap">
+                                <div class="col s3 left likes">
+                                    <img class="" src="/static/blog/img/like.svg">25
+                                </div>
+                                <div class="col s3 left comments">
+                                    <img class="" src="/static/blog/img/comment.svg">25
+                                </div>
+                                <div class="col s3 right views">
+                                    <img class="" src="/static/blog/img/view.svg">25
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

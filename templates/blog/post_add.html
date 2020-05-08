@@ -1,0 +1,529 @@
+{% extends 'materialize/materialize_base_dev.html' %}
+
+{% block extra_stylesheets %}
+    <script src="/static/blog/js/jquery.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Museo Cyrl';
+            src: url('/static/blog/font/Museo Cyrl 500.otf');
+        }
+
+        @font-face {
+            font-family: 'Circe Rounded';
+            src: url('/static/blog/font/CirceRounded-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: 'Circe Rounded';
+            font-weight: bold;
+            src: url('/static/blog/font/CirceRounded-AltBold.ttf');
+        }
+
+        * {
+            font-family: Circe Rounded;
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        b {
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 31px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: Museo Cyrl;
+        }
+
+        h1 {
+            font-size: 72px;
+            line-height: 86px;
+        }
+
+        h2 {
+            font-size: 64px;
+            line-height: 77px;
+        }
+
+        h3 {
+            font-size: 48px;
+            line-height: 58px;
+        }
+
+        h4 {
+            font-size: 36px;
+            line-height: 43px;
+        }
+
+        h5 {
+            font-size: 24px;
+            line-height: 29px;
+        }
+
+        .col.noWrap {
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            height: 9em;
+            border: 2px solid #CDCDCD;
+            border-right: 0;
+            border-left: 0;
+        }
+
+        header .col.leftBlock {
+            padding-top: 2em;
+        }
+
+        header .col.rightBlock {
+            padding-top: 2.6em;
+        }
+
+        header .siteName {
+            line-height: 85px;
+        }
+
+        header .logout img,
+        header .avatar img,
+        header .email img {
+            cursor: pointer;
+        }
+
+        header .logout img {
+            padding-top: 7px;
+            width: 52%;
+        }
+
+        header .email img {
+            width: 56%;
+        }
+
+        header .avatar img {
+            margin: -22px 14px;
+            width: 75%;
+            border: 3px solid #010101;
+            border-radius: 50%;
+        }
+
+        header .mainLogo {
+            width: 244px;
+            position: relative;
+            top: -10px;
+            right: -17px;
+        }
+
+        .postList .post .title .subtitle {
+            font-family: Circe Rounded;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .postList .post .title h5 {
+            margin-top: 0;
+            font-family: Circe Rounded;
+            font-size: 24px;
+            line-height: 28px;
+
+            color: #315AF2;
+        }
+
+        .postList .post .title {
+            text-align: center;
+        }
+
+        .postList .post .postImage img {
+            height: -webkit-fill-available;
+        }
+
+        .postList .post .postImage {
+            max-height: 10em;
+            text-align: center;
+        }
+
+        .postList .post .postWrapper {
+            background: #FFFFFF;
+            border: 2px solid #CDCDCD;
+            box-sizing: border-box;
+            border-radius: 3px;
+            margin-bottom: 16px;
+            padding: 11px 11px 0px 11px;
+        }
+
+        .postList .post:hover .postWrapper {
+            border: 2px solid #E2EDF8;
+            box-shadow: 0px 2px 10px #E2EDF8;
+        }
+
+        .postList .infoBlock .views img {
+
+            margin-top: -0.4em;
+        }
+
+        .infoBlock .views img {
+            height: 1.4em;
+            position: relative;
+            top: 4px;
+        }
+
+        .infoBlock img {
+            height: 1em;
+            position: relative;
+            top: 2px;
+        }
+
+        .infoBlock > span {
+            width: 4em;
+            padding-right: 0.5em;
+        }
+
+        .mainPost .infoBlock .status {
+            color: #E9399C;
+            padding-right: 1em;
+        }
+
+        .mainPost .infoBlock {
+            padding-top: 4em;
+        }
+
+        .mainPost h2 {
+            font-size: 45px;
+            line-height: 52px;
+            width: 120%;
+            color: #315AF2;
+            margin-top: 0.3em;
+        }
+
+        .postHeader h3 {
+            font-size: 36px;
+            line-height: 20px;
+            width: 120%;
+            color: #315AF2;
+            margin-top: 1em;
+        }
+
+        .postHeader .filter {
+            margin-top: 2em;
+        }
+
+        .mainPost .mainImage {
+            width: 100%;
+            margin: -3em 0;
+            /* margin-bottom: -6em; */
+            z-index: -1;
+            position: relative;
+        }
+
+        button.inactive {
+            background: #CDCDCD;
+        }
+
+        button.inactive:hover {
+            background: rgba(205, 205, 205, 0.75);
+        }
+
+        button.inactive[disabled] {
+            background: rgba(205, 205, 205, 0.4);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            font-size: 36px;
+            color: white;
+            line-height: 43px;
+            background: #315AF2;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0.2em 0.5em;
+        }
+
+        button:hover {
+            background: rgba(49, 90, 242, 0.75);
+        }
+
+        button[disabled] {
+            background: rgba(49, 90, 242, 0.4);
+            color: rgba(255, 255, 255, 0.41);
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: #CDCDCD;
+        }
+
+        body .contentWrapper input:not([type]):focus:not([readonly]) {
+            border-bottom: 1px solid #315af2;
+            box-shadow: 0 1px 0 0 #315af2;
+        }
+
+        .contentWrapper .rightTextArea textarea {
+
+        }
+
+        .contentWrapper .rightInput {
+
+        }
+
+        .contentWrapper .sendBtn {
+            margin-left: 16px;
+        }
+
+        .contentWrapper .send .sendBtn {
+            background: #E9399C;
+        }
+
+        .contentWrapper .input-field textarea,
+        .contentWrapper .input-field textarea:focus {
+            border-bottom: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            margin-bottom: 0;
+            min-height: 10em;
+            padding: 0.2em 0.5em;
+        }
+
+        .contentWrapper .input-field {
+            border: 2px solid #CDCDCD;
+            border-radius: 3px;
+            color: #315AF2;
+            box-sizing: border-box;
+            font-family: Museo Cyrl;
+            font-size: 25px;
+        }
+
+        .contentWrapper input {
+            border: 2px solid #CDCDCD;
+            border-radius: 3px;
+            padding: 0.2em 0.5em;
+            color: #315AF2;
+            height: 2.2em;
+            box-sizing: border-box;
+            font-family: Museo Cyrl;
+            font-size: 25px;
+            line-height: 36px;
+        }
+
+        .headBTNS > div:last-child {
+            border-right: none;
+        }
+
+        .headBTNS > div {
+            padding: 5px 8px;
+            border-right: 2px solid #CDCDCD;
+            border-collapse: collapse;
+            display: initial;
+        }
+
+        .headBTNS b {
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .headBTNS img.img {
+            width: 20px;
+        }
+
+        .headBTNS img {
+            width: 1em;
+            position: relative;
+            top: 4px;
+            height: 1em;
+        }
+
+        .headBTNS small {
+            font-size: 6px;
+        }
+
+        .headBTNS {
+            font-family: Circe Rounded;
+            font-size: 20px;
+            line-height: 26px;
+            color: black;
+            border-bottom: 2px solid #CDCDCD;
+        }
+
+        .contentWrapper {
+            color: #315AF2;
+        }
+
+        .upload {
+            float: left;
+            border: 2px solid #CDCDCD;
+            padding: 3px;
+            border-radius: 3px;
+            text-align: center;
+            margin-left: 16px;
+        }
+
+        .upload .uploadHeader {
+            font-family: Circe Rounded;
+            font-size: 24px;
+            padding-top: 0.3em;
+            line-height: 31px;
+            text-align: center;
+
+            color: #315AF2;
+        }
+
+        #imagePreview {
+            width: 20em;
+            height: 20em;
+            display: none;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        #removeUploadImage {
+            float: right;
+            margin: 2em;
+            background: #E5E5E5;
+            color: white;
+            width: 1.5em;
+            height: 1.5em;
+            padding: .2em;
+            border-radius: 50%;
+
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="row">
+            <div class="col s6 leftBlock left">
+                <img class="mainLogo left" src="/static/blog/img/logo.svg"><b class="left siteName">Блог{% if bread %} /
+                {{ bread }}{% endif %}</b>
+            </div>
+            <div class="col s2 rightBlock right">
+                <div class="row">
+                    <div class="col s3 noWrap email">
+                        <img class=" right" src="/static/blog/img/email.svg">
+                    </div>
+                    <div class="col s5 noWrap avatar">
+                        <img class=" left" src="/static/blog/img/Uchenik.png">
+                    </div>
+                    <div class="col s3 noWrap logout">
+                        <img class=" left" src="/static/blog/img/logout.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container contentWrapper">
+        <div class="row">
+            <div class="col s12 noWrap">
+                <h1>Добавить статью</h1>
+            </div>
+            <div class="col s8 noWrap rightInput">
+                <input id="title"> </input>
+            </div>
+            <div class="col s4 noWrap send">
+                <button class="sendBtn" id="sender">Опубликовать</button>
+            </div>
+            <div class="col s8 noWrap rightTextArea">
+                <div class="input-field col s12 noWrap">
+                    <div class="headBTNS">
+                        <div>
+                            Абзац
+                        </div>
+                        <div>
+                            <b>B</b>
+                            <u>U</u>
+                        </div>
+                        <div>
+                            11 pt <img src="/static/blog/img/arrowD.svg">
+                        </div>
+                        <div>
+                            <img src="/static/blog/img/leftT.svg">
+                            <img src="/static/blog/img/centerT.svg">
+                            <img src="/static/blog/img/rightT.svg">
+                        </div>
+                        <div>
+                            <img src="/static/blog/img/leftG.svg">
+                            <img src="/static/blog/img/rightG.svg">
+                        </div>
+                        <div>
+                            <img src="/static/blog/img/topRArrow.svg">
+                            <img src="/static/blog/img/img.svg">
+                        </div>
+                        <div>
+                            <img src="/static/blog/img/textStyle.svg">
+                            <img src="/static/blog/img/arrowD.svg">
+                        </div>
+                        <div>
+                            < >
+                        </div>
+                        <div>
+                            {i}
+                        </div>
+                        <div>
+                            « »<sup><small>2</small></sup>
+                        </div>
+                        <div>
+                            <img src="/static/blog/img/rList.svg">
+                            <img src="/static/blog/img/nList.svg">
+                        </div>
+                        <div>
+                            a a<sub><small>2</small></sub>
+                        </div>
+                    </div>
+                    <textarea id="content" class="materialize-textarea"></textarea>
+                </div>
+            </div>
+            <div class="col s4 noWrap">
+                <div class="upload">
+                    <div class="uploadHeader">Выбрать изображение</div>
+                    <input type="file" name='imageUpload' id='imageUpload' style="display: none">
+                    <div id="imagePreview">
+                        <div id="removeUploadImage">X</div>
+                    </div>
+                    <button class="sendBtn" id="imageUploadBtn" onclick="$('#imageUpload').click()">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% csrf_token %}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagePreview').show();
+                    $("#imageUploadBtn").hide();
+                    $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(document).ready(function () {
+            $("#imageUpload").change(function () {
+                readURL(this);
+            });
+            $("#removeUploadImage").click(function () {
+                $("#imageUpload").val(null);
+                $('#imagePreview').hide();
+                $("#imageUploadBtn").show();
+            });
+            $("#sender").click(function () {
+                let formData = new FormData();
+                let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                formData.append('title', $('#title').val());
+                formData.append('content', $('#content').val());
+                formData.append('photo', $('#imageUpload')[0].files[0]);
+                formData.append('csrfmiddlewaretoken',csrftoken);
+                $.ajax({
+                    type: "POST",
+                    url: '/create',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+    </script>
+{% endblock %}
